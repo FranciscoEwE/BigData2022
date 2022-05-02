@@ -1,0 +1,15 @@
+create external table parcial(
+Categoria string,
+Titulo string,
+Link string)
+PARTITIONED BY(year int, month string, periodico string)
+ROW FORMAT DELIMITED
+  fields terminated by ','
+  escaped by '\\'
+  lines terminated by '\n'
+location 's3://scrapinghtml/news/final/'
+TBLPROPERTIES ("skip.header.line.count"="1");
+
+msck repair table parcial;
+drop table parcial;
+select * from parcial;
